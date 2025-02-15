@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasks</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 20px;
+        }
+        #tasklist {
+            list-style-type: none;
+            padding: 0;
+        }
+        .done {
+            text-decoration: line-through;
+            color: gray;
+        }
+        .task {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 5px 0;
+        }
+        button {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Task Manager</h1>
+    <input type="text" id="taskInput" placeholder="Enter a new task" />
+    <button onclick="addTask()">Add Task</button>
+    <ul id = "lasklist" ></ul>
+    <script>
+        function addTask() {
+            const taskInput = document.getElementById('taskInput');
+            const taskText = taskInput.value.trim();
+            if (taskText === '') {
+                alert('Please enter a task.');
+                return;
+            }
+
+            const taskList = document.getElementById('tasklist');
+            const listItem = document.createElement('li');
+            listItem.className = 'task';
+
+            const taskLabel = document.createElement('span');
+            taskLabel.textContent = taskText;
+            listItem.appendChild(taskLabel);
+
+            const doneButton = document.createElement('button');
+            doneButton.textContent = 'Done';
+            doneButton.onclick = function() {
+                taskLabel.classList.toggle('done');
+            };
+            listItem.appendChild(doneButton);
+
+            const removeButton = document.createElement('button');
+            removeButton.textContent = 'Remove';
+            removeButton.onclick = function() {
+                taskList.removeChild(listItem);
+            };
+            listItem.appendChild(removeButton);
+
+            taskList.appendChild(listItem);
+            taskInput.value = '';
+        }
+    </script>
+</body>
+</html>
